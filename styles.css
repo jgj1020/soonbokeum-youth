@@ -166,3 +166,37 @@ img,video,svg{max-width:100%}
 @media(prefers-reduced-motion:reduce){
   .reveal{opacity:1;transform:none}
 }
+
+/* Motion v2: floating sticky navigation, animated slideshow, layered scroll reveals. */
+.header,.header.header{position:sticky!important;top:0!important;left:auto!important;right:auto!important;z-index:80!important;transform:none!important;animation:none!important;transition:background .3s ease,box-shadow .3s ease,border-color .3s ease!important}
+.header.is-scrolled{background:rgba(7,23,52,.93);box-shadow:0 12px 35px rgba(3,14,37,.22);border-bottom-color:rgba(255,255,255,.16)}
+.header nav{z-index:85}
+.section,main section[id]{scroll-margin-top:100px}
+@media(max-width:800px){.header,.header.header{position:sticky!important;top:0!important}.section,main section[id]{scroll-margin-top:84px}}
+.hero-slider{isolation:isolate}
+.slide{opacity:0;visibility:hidden;transform:none;transition:opacity 1.15s cubic-bezier(.2,.7,.2,1),visibility 1.15s;will-change:opacity}
+.slide.active{opacity:1;visibility:visible;transform:none;z-index:2}
+.slide img{transform:scale(1.13) translate3d(-1%,0,0);transition:transform 7.2s linear,filter 1.3s ease;filter:saturate(.9)}
+.slide.active img{transform:scale(1.01) translate3d(0,0,0);filter:saturate(1.05)}
+.slide:nth-child(2) img{transform-origin:80% 45%}
+.slide:nth-child(3) img{transform-origin:25% 50%}
+.hero-overlay{z-index:3;pointer-events:none}
+.hero-inner{z-index:4}
+.hero-content{animation:none}
+.hero-content>*{opacity:0;transform:translateY(25px);animation:heroLayerIn .85s cubic-bezier(.18,.8,.25,1) forwards}
+.hero-content>*:nth-child(1){animation-delay:.12s}
+.hero-content>*:nth-child(2){animation-delay:.25s}
+.hero-content>*:nth-child(3){animation-delay:.4s}
+.hero-content>*:nth-child(4){animation-delay:.54s}
+@keyframes heroLayerIn{to{opacity:1;transform:translateY(0)}}
+.slider-dots button{transition:width .35s ease,background .35s ease,transform .35s ease}
+.slider-dots button.active{width:24px;border-radius:20px}
+.slider-controls>button{transition:background .25s ease,transform .25s ease,border-color .25s ease}
+.slider-controls>button:hover{background:rgba(255,255,255,.3);transform:scale(1.08)}
+.hero:after{content:'';position:absolute;bottom:0;left:0;width:var(--slide-progress,0%);height:3px;background:#8bbaff;z-index:5;pointer-events:none;transition:width .15s linear}
+.reveal{opacity:0;transform:translateY(38px);filter:blur(5px);transition:opacity .85s cubic-bezier(.2,.7,.2,1),transform .85s cubic-bezier(.2,.7,.2,1),filter .85s}
+.reveal.visible{opacity:1;transform:translateY(0);filter:blur(0)}
+.quick-link,.club-card,.gallery-photo,.worship-card{transition:transform .35s ease,box-shadow .35s ease,border-color .35s ease}
+@media(hover:hover){.quick-link:hover,.club-card:hover,.worship-card:hover{transform:translateY(-5px);box-shadow:0 18px 38px rgba(10,35,78,.12)}}
+@media(max-width:600px){.hero-content>*{animation-duration:.65s}.slide img{transition-duration:6.5s}}
+@media(prefers-reduced-motion:reduce){.slide,.slide img,.hero-content>*,.reveal,.slider-dots button{animation:none!important;transition:none!important;transform:none!important;filter:none!important}.hero-content>*,.reveal{opacity:1!important}.hero:after{display:none}}
